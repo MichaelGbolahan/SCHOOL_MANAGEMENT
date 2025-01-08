@@ -1,0 +1,57 @@
+{% extends 'dashboard.html' %}
+{% block title %} Add School Fees {% endblock %}
+
+{% block content %}
+<div class="container mt-5">
+    <h1 class="mb-4">Add School Fee</h1>
+    
+    {% include 'message.html' %}
+
+    <form method="POST" action="{{ url_for('add_school_fee') }}">
+        <div class="mb-3">
+            <label for="program_id" class="form-label">Programme</label>
+            <select class="form-select" id="program_id" name="program_id" required>
+                <option value="">-- Select Programme --</option>
+                {% for program in programs %}
+                    <option value="{{ program.id }}">{{ program.name }}</option>
+                {% endfor %}
+            </select>
+        </div>
+        <div class="mb-3">
+            <label for="department_id" class="form-label">Department</label>
+            <select class="form-select" id="department_id" name="department_id" required>
+                <option value="">-- Select Department --</option>
+                {% for department in departments %}
+                    <option value="{{ department.id }}">{{ department.name }}</option>
+                {% endfor %}
+            </select>
+        </div>
+        <div class="mb-3">
+            <label for="session_id" class="form-label">Session</label>
+            <select class="form-select" id="session_id" name="sessions_id" required>
+                <option value="">-- Select Session --</option>
+                {% for sessions in sessions %}
+                    <option value="{{ sessions.id }}">{{ sessions.name }}</option>
+                {% endfor %}
+            </select>
+        </div>
+        <div class="mb-3">
+            <label for="level_id" class="form-label">Level</label>
+            <select class="form-select" id="level_id" name="level_id" required>
+                <option value="">-- Select Level --</option>
+                {% for level in levels %}
+                    <option value="{{ level.id }}">{{ level.name }}</option>
+                {% endfor %}
+            </select>
+        </div>
+        <div class="mb-3">
+            <label for="amount" class="form-label">Amount</label>
+            <input type="number" class="form-control" id="amount" name="amount" step="0.01" required>
+        </div>
+        <div class="mb-3">
+            <label for="description" class="form-label">Description (Optional)</label>
+            <textarea class="form-control" id="description" name="description" rows="3"></textarea>
+        </div>
+        <button type="submit" class="btn btn-primary">Add Fee</button>
+    </form>
+{% endblock %}

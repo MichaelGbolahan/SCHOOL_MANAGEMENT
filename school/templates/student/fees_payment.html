@@ -1,0 +1,38 @@
+{% extends 'student_dashboard.html' %}
+{% block title %} Pay School Fees {% endblock %}
+
+{% block content %}
+<div class="container mt-5">
+  <div class="card shadow-sm">
+    <div class="card-header text-center bg-primary text-white">
+      <h2 class="mb-0">Pay School Fees</h2>
+    </div>
+    <div class="card-body">
+      <div class="mb-3">
+        <h5><strong>Programme:</strong> {{ student.programme.name }}</h5>
+        <h5><strong>Level:</strong> {{ student.level.name }}</h5>
+        <h5><strong>Academic Session:</strong> {{ student.session.name }}</h5>
+        <h5><strong>Amount:</strong> <span class="text-success">₦{{ school_fee.amount }}</span></h5>
+      </div>
+      {% if school_fee.status == 'Paid' %}
+      <div class="alert alert-success text-center" role="alert">
+        <strong>Payment Completed:</strong> You have already paid your school fees.
+      </div>
+      {% else %}
+      <form action="{{ url_for('payment') }}" method="POST" class="text-center">
+        <input type="hidden" name="amount" value="{{ school_fee.amount }}">
+        <script
+          src="https://checkout.stripe.com/checkout.js"
+          class="stripe-button"
+          data-key="{{ config['PUBLISHABLE_KEY'] }}"
+          data-name="School Fee Payment"
+          data-description="Make your school fee payment"
+          data-amount="{{ amount_in_cents }}"
+          data-currency="ngn">
+        </script>
+      </form>
+      {% endif %}
+    </div>
+  </div>
+</div>
+{% endblock %}

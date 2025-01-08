@@ -1,0 +1,22 @@
+{% extends 'dashboard.html' %}
+{% block title %}Add Faculty {% endblock %}
+
+{% block content %}
+
+
+<div class="container mt-4">
+    <div class="">
+        {% include 'message.html' %}
+        <form action="{{url_for('faculty')}}" method="post">
+            <div class="mb-3">
+                <label for="brand">Add Faculty</label><br>
+                <input type="text" name="falc" class="form-control" placeholder="Add Faculty">
+            </div>
+            <div>
+                <button class="btn btn-primary">Add</button>
+            </div>
+        </form>
+    </div>
+</div>
+
+{% endblock %}

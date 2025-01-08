@@ -1,0 +1,21 @@
+{% extends 'student_dashboard.html' %}
+{% block title %} Course Registration {% endblock %}
+
+{% block content %}
+
+<div class="container mt-5">
+    <h2>Register for a Course</h2>
+    <div class="card p-4 mt-3">
+        {% include 'message.html' %}
+        <form method="POST">
+            {{ form.hidden_tag() }}
+            <div class="mb-3">
+                <label for="course_id" class="form-label">Select Course</label>
+                {{ form.course_id(class="form-select", id="course_id") }}
+            </div>
+            <button type="submit" class="btn btn-primary w-100">Register</button>
+        </form>
+    </div>
+</div>
+
+{% endblock %}

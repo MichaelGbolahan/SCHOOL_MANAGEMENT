@@ -1,0 +1,55 @@
+#wrapper {
+    display: flex;
+    align-items: stretch;
+    height: 100vh; /* Ensure the wrapper takes the full viewport height */
+    overflow: hidden; /* Prevent extra scrolling issues */
+}
+
+#sidebar-wrapper {
+    min-height: 100vh; /* Ensure the sidebar covers the full height */
+    transition: margin 0.25s ease-out;
+    background-color: #f8f9fa;
+    flex: 0 0 15rem; /* Fixed width for the sidebar */
+    overflow-y: auto; /* Enable scrolling for overflow content */
+}
+
+#sidebar-wrapper .sidebar-heading {
+    padding: 1rem; /* Add padding for better spacing */
+    font-size: 1.25rem; /* Make the text slightly larger */
+    font-weight: bold; /* Emphasize the heading */
+    text-align: center; /* Center-align the heading */
+    background-color: #343a40; /* Add a background color for contrast */
+    color: #fff; /* Ensure the text is readable */
+    border-bottom: 1px solid #dee2e6; /* Add a subtle border below the heading */
+}
+
+#sidebar-wrapper .list-group {
+    width: 100%; /* Take full sidebar width */
+    padding-top: 1rem; /* Add space below the heading */
+}
+
+#page-content-wrapper {
+    flex: 1; /* Allow content to expand */
+    overflow-x: hidden; /* Prevent horizontal overflow */
+}
+
+#wrapper.toggled #sidebar-wrapper {
+    margin-left: -15rem; /* Hide the sidebar when toggled */
+}
+
+/* Ensure sidebar is visible by default on larger screens */
+@media (min-width: 768px) {
+    #sidebar-wrapper {
+        margin-left: 0;
+    }
+}
+
+/* Toggle button */
+#menu-toggle {
+    cursor: pointer;
+}
+
+/* Navbar styles */
+.navbar {
+    padding: 0.75rem 1rem;
+}

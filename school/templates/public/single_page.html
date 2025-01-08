@@ -1,0 +1,15 @@
+{% extends 'base.html' %}
+{% block title %} News {% endblock %}
+
+{% block content %}
+<div class="container-fluid mt-4">
+  <div class="card mb-3 mx-2">
+    <img src="{{url_for('static',filename='pictures/' + post.image)}}" alt="{{post.name}}" class="card-img-top" height="200">
+    <div class="card-body">
+      <h5 class="card-title">{{post.title}}</h5>
+      <p class="card-text">{{post.content|safe}}</p>
+      <p class="card-text">By: {{post.author.name|capitalize}}</p>
+    </div>
+  </div>
+</div>
+{% endblock %}

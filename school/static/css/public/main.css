@@ -1,0 +1,30 @@
+body {
+    display: flex;
+    flex-direction: column;
+    min-height: 100vh;
+}
+.cads{
+  margin-top: 40px;
+  margin-left:40px;
+}
+.footer {
+    margin-top: auto;
+    background-color: #343a40;
+    color: #fff;
+    padding: 40px 0;
+  }
+  .footer a {
+    color: #fff;
+    text-decoration: none;
+  }
+  .footer a:hover {
+    text-decoration: underline;
+  }
+  .social-icons a {
+    margin: 0 10px;
+    color: #fff;
+    font-size: 24px;
+  }
+  .social-icons a:hover {
+    color: #007bff;
+  }

@@ -1,0 +1,68 @@
+{% extends 'dashboard.html' %}
+{% block title %} Edit School Fees  {% endblock %}
+
+{% block content %}
+
+<div class="container">
+    <div class="">
+        <h1 class="text-center mt-5">Edit School Fees</h1>
+        <form action="{{url_for('edit_school_fee',id=schfee.id)}}" method="post" >
+            <div class="mb-3">
+                <label for="amount">Amount</label>
+                <input type="text" name="amt" class="form-control" value="{{schfee.amount}}">
+            </div>
+            <div class="mb-3">
+                <label for="description">Description</label>
+                <textarea class="form-control" name="desc" rows="3">{{schfee.description}}</textarea>
+            </div>
+            <div class="mb-3">
+                <label for="programme">Programme</label>
+                <select name="prog" id="programme" class="form-control">
+                    <option value="">Select a Programme</option>
+                    {% for prog in progss %}
+                        <option value="{{ prog.id }}" {% if prog.id == schfee.programme_id %}selected{% endif %}>
+                            {{ prog.name }}
+                        </option>
+                    {% endfor %}
+                </select>
+            </div>
+            <div class="mb-3">
+                <label for="department">Department</label>
+                <select name="depart" id="department" class="form-control">
+                    <option value="">Select a Department</option>
+                    {% for depart in departss %}
+                        <option value="{{ depart.id }}" {% if depart.id == schfee.department_id %}selected{% endif %}>
+                            {{ depart.name }}
+                        </option>
+                    {% endfor %}
+                </select>
+            </div>
+            <div class="mb-3">
+                <label for="department">Level</label>
+                <select name="lev" id="level" class="form-control">
+                    <option value="">Select a Level</option>
+                    {% for lev in levss %}
+                        <option value="{{ lev.id }}" {% if lev.id == schfee.level_id %}selected{% endif %}>
+                            {{ lev.name }}
+                        </option>
+                    {% endfor %}
+                </select>
+            </div>
+            <div class="mb-3">
+                <label for="department">Session</label>
+                <select name="sess" id="session" class="form-control">
+                    <option value="">Select a Session</option>
+                    {% for sess in sesc %}
+                        <option value="{{ sess.id }}" {% if sess.id == schfee.session_id %}selected{% endif %}>
+                            {{ sess.name }}
+                        </option>
+                    {% endfor %}
+                </select>
+            </div>
+            <input type="submit" value="Edit School Fee" class="btn btn-info mt-3">
+        </form>
+            <a href="{{url_for('view_school_fee')}}" class="btn btn-warning" style="margin-top:-65px; margin-left:140px">Cancel</a>
+    </div>
+</div>
+
+{% endblock %}

@@ -1,0 +1,60 @@
+{% extends 'dashboard.html' %}
+{% block title %} View Student {% endblock %}
+
+{% block content %}
+
+<div class="container mt-4">
+    <div class="">
+      <div class="text-center">
+        <h2 class="text-danger">View All Student</h2>
+      </div>
+        <table class="table">
+            {% include 'message.html' %}
+            <tr>
+                <th>ID</th>
+                <th>First Name</th>
+                <th>Last Name</th>
+                <th>Other Name</th>
+                <th>Programme</th>
+                <th>Faculty</th>
+                <th>Department</th>
+                <th>Level</th>
+                <th>Delete</th>
+            </tr>
+            {% for stud in stud %}
+            <tr>
+                <td>{{loop.index}}</td>
+                <td>{{stud.first_name}}</td>
+                <td>{{stud.last_name}}</td>
+                <td>{{stud.other_name}}</td>
+                <td>{{stud.programme.name}}</td>
+                <td>{{stud.faculty.name}}</td>
+                <td>{{stud.department.name}}</td>
+                <td>{{stud.level.name}}</td>
+                <td><button type="button" class="btn btn-danger" data-bs-toggle="modal" data-bs-target="#exampleModal-{{stud.id}}">Delete</button></td>
+            </tr>
+            <div class="modal fade" id="exampleModal-{{stud.id}}" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                <div class="modal-dialog">
+                  <div class="modal-content">
+                    <div class="modal-header">
+                      <h1 class="modal-title fs-5" id="exampleModalLabel">{{stud.name}}</h1>
+                      <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                    </div>
+                    <div class="modal-body">
+                      <p>Are you sure you want to Delete this Student</p>
+                    </div>
+                    <div class="modal-footer">
+                      <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                      <form action="{{url_for('delete_student',id=stud.id)}}" method="post">
+                        <button type="submit" class="btn btn-danger">Delete</button>
+                      </form>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            {% endfor %}
+        </table>
+    </div>
+</div>
+
+{% endblock %}

@@ -1,0 +1,17 @@
+{% extends 'dashboard.html' %}
+{% block title %} Edit Category {% endblock %}
+
+{% block content %}
+
+<div class="container">
+    <div class="">
+        <h1 class="text-center mt-5">Edit Category</h1>
+        <form action="{{url_for('edit_category',id=cats.id)}}" method="post" >
+            <input type="text" name="cats" class="form-control" value="{{cats.name}}">
+            <input type="submit" value="Edit Category" class="btn btn-info mt-3">
+        </form>
+            <a href="{{url_for('view_category')}}" class="btn btn-warning" style="margin-top:-65px; margin-left:140px">Cancel</a>
+    </div>
+</div>
+
+{% endblock %}

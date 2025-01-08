@@ -1,0 +1,104 @@
+{% extends 'student_dashboard.html' %}
+{% block title %} Biodata {% endblock %}
+
+{% block content %}
+<div class="container mt-5">
+    <div class="card shadow">
+        <div class="card-header bg-primary text-white text-center">
+            <h4 class="mb-0">Student Biodata</h4>
+        </div>
+        <div class="card-body">
+            <div class="row">
+                <div class="col-md-6 offset-md-3">
+                    <table class="table table-borderless">
+                        <tbody>
+                            <tr>
+                                <th scope="row" class="text-muted">First Name</th>
+                                <td>{{ stu.first_name }}</td>
+                            </tr>
+                            <tr>
+                                <th scope="row" class="text-muted">Last Name</th>
+                                <td>{{ stu.last_name }}</td>
+                            </tr>
+                            <tr>
+                                <th scope="row" class="text-muted">Other Name</th>
+                                <td>{{ stu.other_name }}</td>
+                            </tr>
+                            <tr>
+                                <th scope="row" class="text-muted">Programme</th>
+                                <td>{{ stu.programme.name }}</td>
+                            </tr>
+                            <tr>
+                                <th scope="row" class="text-muted">Session</th>
+                                <td>{{ stu.session.name }}</td>
+                            </tr>
+                            <tr>
+                                <th scope="row" class="text-muted">Faculty</th>
+                                <td>{{ stu.faculty.name }}</td>
+                            </tr>
+                            <tr>
+                                <th scope="row" class="text-muted">Department</th>
+                                <td>{{ stu.department.name }}</td>
+                            </tr>
+                            <tr>
+                                <th scope="row" class="text-muted">Level</th>
+                                <td>{{ stu.level.name }}</td>
+                            </tr>
+                            <tr>
+                                <th scope="row" class="text-muted">Sex</th>
+                                <td>{{ stu.sex.name }}</td>
+                            </tr>
+                            <tr>
+                                <th scope="row" class="text-muted">Date Of Birth</th>
+                                <td>{{ stu.date_of_birth }}</td>
+                            </tr>
+                            <tr>
+                                <th scope="row" class="text-muted">Email</th>
+                                <td>{{ stu.email }}</td>
+                            </tr>
+                            <tr>
+                                <th scope="row" class="text-muted">Phone No</th>
+                                <td>{{ stu.phone_no }}</td>
+                            </tr>
+                            <tr>
+                                <th scope="row" class="text-muted">Residential Address</th>
+                                <td>{{ stu.residential_address }}</td>
+                            </tr>
+                            <tr>
+                                <th scope="row" class="text-muted">Place Of Birth</th>
+                                <td>{{ stu.place_of_birth }}</td>
+                            </tr>
+                            <tr>
+                                <th scope="row" class="text-muted">State Of Origin</th>
+                                <td>{{ stu.state_of_origin }}</td>
+                            </tr>
+                            <tr>
+                                <th scope="row" class="text-muted">Local Govt Area</th>
+                                <td>{{ stu.local_govt_area }}</td>
+                            </tr>
+                            <tr>
+                                <th scope="row" class="text-muted">Parent Guardian Name</th>
+                                <td>{{ stu.parent_guardian_name }}</td>
+                            </tr>
+                            <tr>
+                                <th scope="row" class="text-muted">Parent Guardian Address</th>
+                                <td>{{ stu.parent_guardian_address }}</td>
+                            </tr>
+                            <tr>
+                                <th scope="row" class="text-muted">Parent Guardian Phone No</th>
+                                <td>{{ stu.parent_guardian_phone_no }}</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+        <div class="card-footer text-center">
+            <a href="#" class="btn btn-primary m-2">Download</a>
+            <a href="{{url_for('edit_biodata',id=stu.id)}}" class="btn btn-primary m-2">Edit</a>
+            <a href="#" class="btn btn-danger m-2">Delete</a>
+            <a href="#" class="btn btn-secondary m-2">Profile</a>
+        </div>
+    </div>
+</div>
+{% endblock %}

@@ -1,0 +1,27 @@
+{% extends 'dashboard.html' %}
+{% block title %}Add Course {% endblock %}
+
+{% block content %}
+<div class="container mt-5">
+    <h2 class="text-center">Add New Course</h2>
+    <div class="card p-4 mt-3">
+        {% include 'message.html' %}
+        <form method="POST">
+            {{ form.hidden_tag() }}
+            <div class="mb-3">
+                <label for="code" class="form-label">Course Code</label>
+                {{ form.code(class="form-control", id="code") }}
+            </div>
+            <div class="mb-3">
+                <label for="name" class="form-label">Course Name</label>
+                {{ form.name(class="form-control", id="name") }}
+            </div>
+            <div class="mb-3">
+                <label for="credit_hours" class="form-label">Credit Hours</label>
+                {{ form.credit_hours(class="form-control", id="credit_hours") }}
+            </div>
+            <button type="submit" class="btn btn-primary w-100">Add Course</button>
+        </form>
+    </div>
+</div>
+{% endblock %}

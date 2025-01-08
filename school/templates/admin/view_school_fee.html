@@ -1,0 +1,64 @@
+{% extends 'dashboard.html' %}
+{% block title %} View School Fees {% endblock %}
+
+{% block content %}
+
+<div class="container mt-4">
+    <div class="">
+      <div class="text-center">
+        <h2 class="text-danger">View School Fees</h2>
+      </div>
+        <table class="table">
+            {% include 'message.html' %}
+            <tr>
+                <th>ID</th>
+                <th>Amount</th>
+                <th>Description</th>
+                <th>Programme</th>
+                <th>Department</th>
+                <th>Level</th>
+                <th>Session</th>
+                <th>Edit</th>
+                <th>Delete</th>
+            </tr>
+            {% for schoo in schoo %}
+            <tr>
+                <td>{{loop.index}}</td>
+                <td>{{schoo.amount}}</td>
+                <td>{{schoo.description}}</td>
+                <td>{{schoo.programme.name}}</td>
+                <td>{{schoo.department.name}}</td>
+                <td>{{schoo.level.name}}</td>
+                <td>{{schoo.session.name}}</td>
+                <td>
+                    <a class="btn btn-primary" href="{{url_for('edit_school_fee',id=schoo.id)}}">Edit</a>
+                </td>
+                <td><button type="button" class="btn btn-danger" data-bs-toggle="modal" data-bs-target="#exampleModal-{{schoo.id}}">Delete</button></td>
+            </tr>
+            <div class="modal fade" id="exampleModal-{{schoo.id}}" tabindex="-1" aria-labelledby="exampleModalLabel-{{schoo.id}}" aria-hidden="true">
+                <div class="modal-dialog">
+                  <div class="modal-content">
+                    <div class="modal-header">
+                      <h1 class="modal-title fs-5" id="exampleModalLabel">{{schoo.description}}</h1>
+                      <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                    </div>
+                    <div class="modal-body">
+                      <p>Are you sure you want to Delete this Session</p>
+                    </div>
+                    <div class="modal-footer">
+                      <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                      <form action="{{url_for('delete_school_fee',id=schoo.id)}}" method="post">
+                        <button type="submit" class="btn btn-danger">Delete</button>
+                      </form>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            {% endfor %}
+        </table>
+    </div>
+</div>
+
+
+
+{% endblock %}

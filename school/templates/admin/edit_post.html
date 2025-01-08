@@ -1,0 +1,40 @@
+{% extends 'dashboard.html' %}
+{% block title %} Edit Post {% endblock %}
+
+{% block content %}
+
+<div class="container mt-4">
+    <h2 class="text-danger text-center">Edit Blog Post</h2>
+    <form action="{{url_for('edit_posts',id=post.id)}}" method="post" enctype="multipart/form-data">
+        {% from 'form_helper.html' import render_field %}
+        {{form.hidden_tag()}}
+        <div>
+            {{form.title.label(class='form-label')}}
+            {{form.title(class='form-control')}}
+        </div>
+        <div>
+            {{form.content.label(class='form-label')}}
+            {{form.content(class='form-control')}}
+        </div>
+        <div>
+            {{form.image.label(class='form-label')}}
+            {{form.image(class='form-control')}}
+        </div>
+        <div>
+            <label for="category"><h5>Add a category</h5></label><br>
+                <select name="category" id="category" class="form-control" required>
+                    <option value="">Add a category</option>
+                    {% for category in categories %}
+                    <option value="{{category.id}}">{{category.name}}</option>
+                    {% endfor %}
+        </div>
+        <div>
+            {{form.submit(class='btn btn-primary')}}
+        </div>
+    </form>
+    {{ckeditor.load()}}
+    {{ckeditor.config(name='content')}}
+    </div>
+</div>
+
+{% endblock %}

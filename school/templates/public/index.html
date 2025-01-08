@@ -1,0 +1,52 @@
+{% extends 'base.html' %}
+
+{% block content %}
+<div class="container mt-4">
+  <!-- Add row with gutters -->
+  <div class="row gx-4 gy-4">
+    {% for pos in post %}
+    <!-- Each card is in a column -->
+    <div class="col-md-3">
+      <div class="card">
+        <img src="{{ url_for('static', filename='pictures/' + pos.image) }}" alt="{{ pos.name }}" class="card-img-top" height="200">
+        <div class="card-body">
+          <h5 class="card-title">{{ pos.category.name }}</h5>
+          <p class="card-text">{{ pos.title }}</p>
+          <p class="card-text">By: {{ pos.author.name|capitalize }}</p>
+          <a href="{{url_for('single_page',id=pos.id)}}" class="btn btn-primary">Read More</a>
+        </div>
+      </div>
+    </div>
+    {% endfor %}
+    <!--pagination-->
+    <div class="row">
+      <div class="col text-center">
+        {% if post.has_prev %}
+        <a href="{{url_for('index',page=post.prev_num)}}"class='btn btn-outline-info btn-sm mt-3'>Previous</a>
+        {% endif %}
+        {% for page_num in post.iter_pages() %}
+        {% if page_num %}
+        {% if post.page == page_num %}
+        <a href="{{url_for('index',page=page_num)}}"class='btn btn-info btn-sm mt-3'>{{page_num}}</a>
+        {% else %}
+        <a href="{{url_for('index',page=page_num)}}"class='btn btn-outline-info btn-sm mt-3'>{{page_num}}</a>
+        {% endif %}
+        {% else %}
+        ...
+        {% endif %}
+        {% endfor %}
+
+        {% if post.has_next %}
+        <a href="{{url_for('index',page=post.next_num)}}"class='btn btn-outline-info btn-sm mt-3'>Next</a>
+        {% endif %}
+      </div>
+    </div>
+    <!--end pagination-->
+  </div>
+</div>
+{% endblock %}
+
+
+
+
+
