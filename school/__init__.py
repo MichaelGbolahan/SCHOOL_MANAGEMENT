@@ -26,16 +26,8 @@ ckeditor = CKEditor(app)
 
 
 
-config_path = os.path.join(os.path.dirname(__file__), "config.cfg") # Absolute path
-print(f"Config path: {config_path}")
 
-try:
-    app.config.from_pyfile(config_path)
-    print("Config loaded successfully!")
-    print(app.config.get("SECRET_KEY")) # Try accessing a config value
-except FileNotFoundError:
-    print("Config file NOT found!")
-app.config.from_pyfile(config_path)
+
 app.config.from_pyfile('config.cfg')
 app.config.from_pyfile('config.cfg')
 app.config.from_pyfile('config.cfg')
