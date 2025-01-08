@@ -25,7 +25,8 @@ app=Flask(__name__)
 ckeditor = CKEditor(app)
 
 
-app.config.from_pyfile('config.cfg')
+
+app.config.from_pyfile(os.path.join(os.path.dirname(__file__), "config.cfg"))
 app.config.from_pyfile('config.cfg')
 app.config.from_pyfile('config.cfg')
 app.config.from_pyfile('config.cfg')
