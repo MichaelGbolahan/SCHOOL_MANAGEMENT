@@ -27,6 +27,7 @@ ckeditor = CKEditor(app)
 
 
 config_path = os.environ.get('CONFIG_PATH', '/opt/render/project/src/school/config.cfg')
+print(f"Using configuration path: {config_path}")
 app.config.from_pyfile(config_path)
 app.config.from_pyfile('config.cfg')
 app.config.from_pyfile('config.cfg')
