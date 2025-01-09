@@ -45,7 +45,6 @@ app.config.from_pyfile('config.cfg')
 app.config.from_pyfile('config.cfg')
 app.config.from_pyfile('config.cfg')
 app.config.from_pyfile('config.cfg')
-app.config.from_pyfile('config.cfg')
 app.config['UPLOADED_PHOTOS_DEST'] = os.path.join(basedir, 'static/pictures')
 
 # Upload configuration
