@@ -1,8 +1,6 @@
 from flask import Flask
 from flask_sqlalchemy import SQLAlchemy
 from flask_uploads import IMAGES, UploadSet, configure_uploads
-from werkzeug.utils import secure_filename
-from werkzeug.datastructures import FileStorage
 from flask_migrate import Migrate
 from flask_bcrypt import Bcrypt
 from flask_mail import Mail
@@ -12,53 +10,54 @@ from flask_msearch import Search
 from dotenv import load_dotenv
 import os
 
-# Load environment variables from .env file
-# Ensure you have a .env file containing sensitive configurations
-load_dotenv()
+load_dotenv()  # Load .env for local development
 
-# Base directory: set to the project root
-basedir = os.path.abspath(os.path.join(os.path.dirname(__file__), '..'))
+basedir = os.path.abspath(os.path.dirname(__file__))
 
-# Config file path
-config_path = os.path.join(basedir, 'school', 'config.cfg')
+app = Flask(__name__)
 
-# Ensure config file exists
-if os.path.exists(config_path):
-    app = Flask(__name__)
-    app.config.from_pyfile(config_path)
+# Database Configuration (PostgreSQL on Render, MySQL locally)
+if os.environ.get('RENDER'):  # Check if running on Render
+    app.config['SQLALCHEMY_DATABASE_URI'] = os.environ.get('SQLALCHEMY_DATABASE_URI') #Get the postgres url from render environment variable
 else:
-    raise FileNotFoundError(f"Config file not found at {config_path}")
+    app.config['MYSQL_DATABASE_URI'] = os.environ.get('MYSQL_DATABASE_URI')  # Use DATABASE_URL from .env (MySQL)
 
-# Initialize CKEditor
-ckeditor = CKEditor(app)
+app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
 
-# Upload configuration
+# Other Configuration (from environment variables - with defaults for local)
+app.config['SECRET_KEY'] = os.environ.get('SECRET_KEY', 'dev_secret_key')
+app.config['MAIL_SERVER'] = os.environ.get('MAIL_SERVER')
+app.config['MAIL_PORT'] = int(os.environ.get('MAIL_PORT', 587))
+app.config['MAIL_USE_TLS'] = os.environ.get('MAIL_USE_TLS', 'true').lower() == 'true'
+app.config['MAIL_USERNAME'] = os.environ.get('MAIL_USERNAME')
+app.config['MAIL_PASSWORD'] = os.environ.get('MAIL_PASSWORD')
+app.config['MAIL_DEFAULT_SENDER'] = os.environ.get('MAIL_DEFAULT_SENDER')
 app.config['UPLOADED_PHOTOS_DEST'] = os.path.join(basedir, 'static/pictures')
+
+# Stripe Keys
+app.config['PUBLISHABLE_KEY'] = os.environ.get('PUBLISHABLE_KEY')
+app.config['STRIPE_SECRET_KEY'] = os.environ.get('STRIPE_SECRET_KEY')
+
+if not app.config['PUBLISHABLE_KEY'] or not app.config['STRIPE_SECRET_KEY']:
+    raise ValueError("Stripe publishable and secret keys must be set as environment variables.")
+
+# Initialize extensions AFTER config is set
 photos = UploadSet('photos', IMAGES)
 configure_uploads(app, photos)
-
-# Stripe keys
-stripe_publishable_key = app.config['PUBLISHABLE_KEY']
-stripe_secret_key = app.config['STRIPE_SECRET_KEY']
-
-# Database setup
 db = SQLAlchemy(app)
 migrate = Migrate(app, db)
 bcrypt = Bcrypt(app)
 mail = Mail(app)
-
-# Full-text search setup
 search = Search(db=db)
 search.init_app(app)
-
-# User login management
 login_manager = LoginManager()
 login_manager.init_app(app)
 login_manager.login_view = 'student_login'
 login_manager.needs_refresh_message_category = 'danger'
 login_manager.login_message = u'please login first'
+ckeditor = CKEditor(app)
 
-# Import blueprints (routes)
+
 from school.public import route
-from school.student import route, forms, models
-from school.admin import route, forms, models
+from school.student import route,forms,models
+from school.admin import route,models,forms

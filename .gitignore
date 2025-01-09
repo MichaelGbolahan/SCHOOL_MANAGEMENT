@@ -1,1 +1,7 @@
-config.cfg
+.env
+__pycache__/
+*.pyc
+.venv/
+env/
+instance/
+*.DS_Store  # macOS specific
