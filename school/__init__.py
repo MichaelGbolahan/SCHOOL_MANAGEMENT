@@ -21,6 +21,13 @@ basedir = os.path.abspath(os.path.dirname(__file__))
 
 app=Flask(__name__)
 
+# Load the configuration file from Render's secret path
+config_path = "/etc/secrets/config.cfg"  # This path matches what you set in Render
+if os.path.exists(config_path):
+    app.config.from_pyfile(config_path)
+else:
+    raise FileNotFoundError(f"Config file not found at {config_path}")
+
 # Initialize CKEditor
 ckeditor = CKEditor(app)
 
@@ -28,7 +35,6 @@ ckeditor = CKEditor(app)
 
 
 
-app.config.from_pyfile('config.cfg')
 app.config.from_pyfile('config.cfg')
 app.config.from_pyfile('config.cfg')
 app.config.from_pyfile('config.cfg')
