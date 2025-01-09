@@ -18,9 +18,9 @@ app = Flask(__name__)
 
 # Database Configuration (PostgreSQL on Render, MySQL locally)
 if os.environ.get('RENDER'):  # Check if running on Render
-    app.config['SQLALCHEMY_DATABASE_URI'] = os.environ.get('SQLALCHEMY_DATABASE_URI') #Get the postgres url from render environment variable
+    app.config['SQLALCHEMY_DATABASE_URI'] = os.environ.get('POSTGRESQL_URL') #Get the postgres url from render environment variable
 else:
-    app.config['MYSQL_DATABASE_URI'] = os.environ.get('MYSQL_DATABASE_URI')  # Use DATABASE_URL from .env (MySQL)
+    app.config['SQLALCHEMY_DATABASE_URI'] = os.environ.get('DATABASE_URL')  # Use DATABASE_URL from .env (MySQL)
 
 app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
 
