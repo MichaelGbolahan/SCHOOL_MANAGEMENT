@@ -19,10 +19,10 @@ load_dotenv()
 # Base directory: set to the project root
 basedir = os.path.abspath(os.path.join(os.path.dirname(__file__), '..'))
 
-# Correct path to the config file inside the 'school' folder
+# Config file path
 config_path = os.path.join(basedir, 'school', 'config.cfg')
 
-# Check if the config file exists
+# Ensure config file exists
 if os.path.exists(config_path):
     app = Flask(__name__)
     app.config.from_pyfile(config_path)
@@ -49,7 +49,7 @@ mail = Mail(app)
 
 # Full-text search setup
 search = Search(db=db)
-search.init_app(app)  # Ensure `search.init_app` is called after `db` initialization
+search.init_app(app)
 
 # User login management
 login_manager = LoginManager()
