@@ -13,17 +13,18 @@ from dotenv import load_dotenv
 import os
 
 # Load environment variables from .env file
+# Ensure you have a .env file containing sensitive configurations
 load_dotenv()
 
+# Base directory: set to the project root
+basedir = os.path.abspath(os.path.join(os.path.dirname(__file__), '..'))
 
-# Base directory
-basedir = os.path.abspath(os.path.dirname(__file__))
+# Correct path to the config file inside the 'school' folder
+config_path = os.path.join(basedir, 'school', 'config.cfg')
 
-app=Flask(__name__)
-
-# Load the configuration file from Render's secret path
-config_path = "/etc/secrets/config.cfg"  # This path matches what you set in Render
+# Check if the config file exists
 if os.path.exists(config_path):
+    app = Flask(__name__)
     app.config.from_pyfile(config_path)
 else:
     raise FileNotFoundError(f"Config file not found at {config_path}")
@@ -31,46 +32,33 @@ else:
 # Initialize CKEditor
 ckeditor = CKEditor(app)
 
-
-
-
-
-app.config.from_pyfile('config.cfg')
-app.config.from_pyfile('config.cfg')
-app.config.from_pyfile('config.cfg')
-app.config.from_pyfile('config.cfg')
-app.config.from_pyfile('config.cfg')
-app.config.from_pyfile('config.cfg')
-app.config.from_pyfile('config.cfg')
-app.config.from_pyfile('config.cfg')
-app.config.from_pyfile('config.cfg')
-app.config.from_pyfile('config.cfg')
-app.config['UPLOADED_PHOTOS_DEST'] = os.path.join(basedir, 'static/pictures')
-
 # Upload configuration
+app.config['UPLOADED_PHOTOS_DEST'] = os.path.join(basedir, 'static/pictures')
 photos = UploadSet('photos', IMAGES)
 configure_uploads(app, photos)
 
+# Stripe keys
 stripe_publishable_key = app.config['PUBLISHABLE_KEY']
 stripe_secret_key = app.config['STRIPE_SECRET_KEY']
 
-
-db=SQLAlchemy(app)
-migrate=Migrate(app,db)
-bcrypt=Bcrypt(app)
+# Database setup
+db = SQLAlchemy(app)
+migrate = Migrate(app, db)
+bcrypt = Bcrypt(app)
 mail = Mail(app)
 
+# Full-text search setup
 search = Search(db=db)
 search.init_app(app)  # Ensure `search.init_app` is called after `db` initialization
 
-
-login_manager=LoginManager()
+# User login management
+login_manager = LoginManager()
 login_manager.init_app(app)
 login_manager.login_view = 'student_login'
 login_manager.needs_refresh_message_category = 'danger'
-login_manager.login_message = u'please login first' 
+login_manager.login_message = u'please login first'
 
-
+# Import blueprints (routes)
 from school.public import route
-from school.student import route,forms,models
-from school.admin import route,forms,models
+from school.student import route, forms, models
+from school.admin import route, forms, models
